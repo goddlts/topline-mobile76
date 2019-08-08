@@ -44,8 +44,22 @@ export default {
   },
   methods: {
     async handleLogin () {
-      const data = await login(this.user)
-      console.log(data)
+      try {
+        const data = await login(this.user)
+        // 记录登录状态
+        // 1. 把登录状态记录到 localStorage
+        // window.localStorage.setItem('user', JSON.stringify(data))
+        // 2. 把登录状态记录到 vuex，store中
+
+        // 提交 mutation,记录到state中
+        this.$store.commit('setUser', data)
+        // 跳转到首页
+        this.$router.push({
+          name: 'home'
+        })
+      } catch (err) {
+        console.log('登录失败' + err)
+      }
     }
   }
 }
