@@ -6,13 +6,20 @@
     />
     <!-- 表单内容 -->
     <van-cell-group>
+      <!-- veevaldate验证插件
+        1. 指令 验证规则 v-validate
+        2. 必须要有name属性
+        3. 错误信息 errors.first('name属性的值')
+       -->
       <van-field
+        name="mobile"
+        v-validate="'required'"
         v-model="user.mobile"
         label="手机号"
         placeholder="请输入手机号"
         clearable
         left-icon="contact"
-        :error-message="mobileErrorMsg"
+        :error-message="errors.first('mobile')"
       />
       <van-field
         v-model="user.code"
@@ -40,20 +47,11 @@ export default {
       user: {
         mobile: '13911111111',
         code: '246810'
-      },
-      mobileErrorMsg: ''
+      }
     }
   },
   methods: {
     async handleLogin () {
-      // 验证表单的输入
-      if (this.user.mobile.trim().length === 0) {
-        this.mobileErrorMsg = '请输入手机号码'
-        return
-      } else {
-        this.mobileErrorMsg = ''
-      }
-
       try {
         const data = await login(this.user)
         // 记录登录状态
