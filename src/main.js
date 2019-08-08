@@ -7,6 +7,8 @@ import 'vant/lib/index.css'
 // 设置 REM 的基准值
 import 'amfe-flexible'
 
+import '@/styles/index.less'
+
 Vue.use(Vant)
 
 Vue.config.productionTip = false
