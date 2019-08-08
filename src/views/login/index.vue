@@ -26,12 +26,13 @@
 
     <!-- 登录按钮 -->
     <div class="login-btn">
-      <van-button class="btn" type="info">登录</van-button>
+      <van-button @click="handleLogin" class="btn" type="info">登录</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import { login } from '@/api/user.js'
 export default {
   data () {
     return {
@@ -39,6 +40,12 @@ export default {
         mobile: '13911111111',
         code: '246810'
       }
+    }
+  },
+  methods: {
+    async handleLogin () {
+      const data = await login(this.user)
+      console.log(data)
     }
   }
 }
