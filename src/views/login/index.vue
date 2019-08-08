@@ -13,7 +13,7 @@
        -->
       <van-field
         name="mobile"
-        v-validate="'required'"
+        v-validate="'required|digits:11'"
         v-model="user.mobile"
         label="手机号"
         placeholder="请输入手机号"
