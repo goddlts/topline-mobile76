@@ -22,6 +22,9 @@
         :error-message="errors.first('mobile')"
       />
       <van-field
+        name="code"
+        v-validate="'required|digits:6'"
+        :error-message="errors.first('code')"
         v-model="user.code"
         label="验证码"
         placeholder="请输入验证码"
@@ -42,6 +45,24 @@
 <script>
 import { login } from '@/api/user.js'
 export default {
+  created () {
+    // 自定义错误信息
+    const dict = {
+      custom: {
+        mobile: {
+          required: '手机号不能为空',
+          digits: '手机号必须为11位数字'
+        },
+        code: {
+          required: '验证码不能为空',
+          digits: '验证码必须为6位数字'
+        }
+      }
+    };
+
+    // or use the instance method
+    this.$validator.localize('zh_cn', dict);
+  },
   data () {
     return {
       user: {
