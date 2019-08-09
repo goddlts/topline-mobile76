@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{ count }}
+
+    <br>
+    {{ obj.name }}
+  </div>
+
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        count: 0,
+        obj: {}
+      },
+      created() {
+        // this.name = '123'
+        // 动态给对象增加的成员不是响应式的
+        // this.obj.name = '123'
+
+        
+        // 动态给对象增加一个响应式的属性
+        this.$set(this.obj, 'name', 'abc')
+      }
+    })
+  </script>
+</body>
+</html>

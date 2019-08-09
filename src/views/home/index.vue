@@ -84,6 +84,7 @@ export default {
       }
       // 给所有的频道对象，添加一个articles属性
       this.channels.forEach((item) => {
+        // 动态给对象增加的属性，不是响应式的
         // item.articles = []
         this.$set(item, 'articles', [])
       })
