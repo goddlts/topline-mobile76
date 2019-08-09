@@ -74,18 +74,26 @@ export default {
   methods: {
     async handleLogin () {
       try {
-        const data = await login(this.user)
-        // 记录登录状态
-        // 1. 把登录状态记录到 localStorage
-        // window.localStorage.setItem('user', JSON.stringify(data))
-        // 2. 把登录状态记录到 vuex，store中
+        // 进行表单验证
+        this.$validator.validate().then(async valid => {
+          if (!valid) {
+            // do stuff if not valid.
+            return
+          }
+          const data = await login(this.user)
+          // 记录登录状态
+          // 1. 把登录状态记录到 localStorage
+          // window.localStorage.setItem('user', JSON.stringify(data))
+          // 2. 把登录状态记录到 vuex，store中
 
-        // 提交 mutation,记录到state中
-        this.$store.commit('setUser', data)
-        // 跳转到首页
-        this.$router.push({
-          name: 'home'
+          // 提交 mutation,记录到state中
+          this.$store.commit('setUser', data)
+          // 跳转到首页
+          this.$router.push({
+            name: 'home'
+          })
         })
+
       } catch (err) {
         console.log('登录失败' + err)
       }
