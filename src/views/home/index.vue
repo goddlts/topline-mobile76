@@ -8,7 +8,7 @@
     <!-- 下拉加载最新数据 -->
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <!-- 频道列表 -->
-      <van-tabs>
+      <van-tabs v-model="activeTabIndex">
         <van-tab
           v-for="channel in channels"
           :title="channel.name"
@@ -46,7 +46,9 @@ export default {
       // 下拉更新组件的
       isLoading: false,
       // 存储频道列表
-      channels: []
+      channels: [],
+      // 激活的tab的索引
+      activeTabIndex: 0
     };
   },
 
@@ -80,19 +82,24 @@ export default {
     },
     // list组件
     onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
+      // 1. 找到当前频道，和id
+      const currentChannel = this.channels[this.activeTabIndex]
+      const id = currentChannel.id
+      // 2. 给所有的频道对象，添加articles属性 （在获取完频道列表 实现）
 
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true;
-        }
-      }, 500);
+      // // 异步更新数据
+      // setTimeout(() => {
+      //   for (let i = 0; i < 10; i++) {
+      //     this.list.push(this.list.length + 1);
+      //   }
+      //   // 加载状态结束
+      //   this.loading = false;
+
+      //   // 数据全部加载完成
+      //   if (this.list.length >= 40) {
+      //     this.finished = true;
+      //   }
+      // }, 500);
     },
     // 下拉加载更多组件
     onRefresh() {
