@@ -34,7 +34,7 @@
                     <van-grid-item
                       v-for="(img, index) in item.cover.images"
                       :key="index">
-                      <van-image :src="img" />
+                      <van-image lazy-load :src="img" />
                     </van-grid-item>
                   </van-grid>
                 </template>

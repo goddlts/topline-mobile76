@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Vant from 'vant'
+import Vant, { Lazyload } from 'vant'
 import 'vant/lib/index.css'
 // 设置 REM 的基准值
 import 'amfe-flexible'
@@ -18,6 +18,7 @@ Vue.use(VeeValidate)
 Validator.localize('zh_cn', zhCN)
 
 Vue.use(Vant)
+Vue.use(Lazyload)
 
 Vue.config.productionTip = false
 
