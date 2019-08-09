@@ -37,7 +37,13 @@
 
     <!-- 登录按钮 -->
     <div class="login-btn">
-      <van-button @click="handleLogin" class="btn" type="info">登录</van-button>
+      <van-button
+        :loading="loading"
+        loading-type="spinner"
+        loading-text="正在登录..."
+        @click="handleLogin"
+        class="btn"
+        type="info">登录</van-button>
     </div>
   </div>
 </template>
@@ -68,15 +74,19 @@ export default {
       user: {
         mobile: '13911111111',
         code: '246810'
-      }
+      },
+      // 控制按钮的加载提示是否显示
+      loading: false
     }
   },
   methods: {
     async handleLogin () {
+      this.loading = true
       try {
         // 进行表单验证
         const valid = await this.$validator.validate()
         if (!valid) {
+          this.loading = false
           // 验证失败，返回
           return
         }
@@ -92,10 +102,12 @@ export default {
         this.$router.push({
           name: 'home'
         })
-
+        this.$toast.success('登录成功')
       } catch (err) {
         console.log('登录失败' + err)
+        this.$toast.fail('登录失败')
       }
+      this.loading = false
     }
   }
 }
