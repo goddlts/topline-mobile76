@@ -2,6 +2,7 @@
   <div>
     <!-- 导航栏 -->
     <van-nav-bar
+      fixed
       title="黑马头条"
     />
     <!-- 下拉加载最新数据 -->
@@ -73,4 +74,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-tabs {
+  margin-bottom: 100px;
+  margin-top: 92px;
+}
 </style>
