@@ -101,12 +101,21 @@ export default {
         timestamp: this.timestamp
       })
 
-      currentChannel.articles = data.results
+      // currentChannel.articles = data.results
+      // [{}, {}, [{},{}]]
+      // currentChannel.articles.push(data.results)
+      // [{}, {}, {}, {}]
+      currentChannel.articles.push(...data.results)
 
-      // console.log(this.channels)
       // 记录时间戳
       this.timestamp = data.pre_timestamp
-      // console.log(data)
+      // 本次数据加载完毕
+      this.loading = false
+
+      // 判断数据是否加载完毕
+      if (data.results.length === 0) {
+        this.finished = true
+      }
 
       // // 异步更新数据
       // setTimeout(() => {
