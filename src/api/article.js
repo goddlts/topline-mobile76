@@ -1,4 +1,4 @@
-import request from '@/utiles/request'
+import request from '@/utils/request'
 
 /**
  * 获取文章数据
