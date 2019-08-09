@@ -78,4 +78,10 @@ export default {
   margin-bottom: 100px;
   margin-top: 92px;
 }
+// 在scoped 中设置的样式，如果元素是动态生成的，不起作用
+// 子组件
+// 深度作用选择器  /deep/
+// .van-tabs /deep/ .van-tabs__content {
+//   margin-top: 300px;
+// }
 </style>
