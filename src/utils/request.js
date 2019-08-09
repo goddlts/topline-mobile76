@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store'
 
 // 1 创建axios实例
 const request = axios.create({
@@ -8,6 +9,12 @@ const request = axios.create({
 // Add a request interceptor
 request.interceptors.request.use(function (config) {
   // Do something before request is sent
+  // 判断用户是否登录
+  // 用户用户登录，设置token
+  if (store.state.user) {
+    config.headers.Authorization = `Bearer ${store.state.user.token}`
+  }
+
   return config
 }, function (error) {
   // Do something with request error
