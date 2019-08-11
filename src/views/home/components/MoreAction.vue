@@ -56,6 +56,7 @@ export default {
         // 3. 成功失败的提示
         this.$toast.success('操作成功')
         // 4. 成功--》通知home组件，关闭MoreAction，删除数据
+        this.$emit('handleSuccess')
       } catch (err) {
         this.$toast.fail('操作失败' + err)
       }

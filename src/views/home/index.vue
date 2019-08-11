@@ -58,7 +58,7 @@
       :value="showAction"
       @input="showAction = $event"
      -->
-    <more-action :currentArticle="currentArticle" v-model="showAction"></more-action>
+    <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
   </div>
 </template>
 
@@ -184,6 +184,25 @@ export default {
     handleShowAction (article) {
       this.showAction = true
       this.currentArticle = article
+    },
+    // MoreAction 中处理成功，执行的方法
+    handleSuccess () {
+      // 关闭MoreAction，删除数据
+      this.showAction = false
+      // 找到当前频道的文章列表
+      const channel = this.channels[this.activeTabIndex]
+      const articles = channel.articles
+      // 当前文章
+      // this.currentArticle
+      // 找当前文章在articles中的索引
+    
+      // 找满足条件的索引
+      const index = articles.findIndex((item) => {
+        // 条件
+        return item.art_id === this.currentArticle.art_id
+      })
+
+      articles.splice(index, 1)
     }
   }
 }
