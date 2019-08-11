@@ -28,7 +28,7 @@
 <script>
 export default {
   name: 'MoreAction',
-  props: ['value'],
+  props: ['value', 'currentArticle'],
   data () {
     return {
       // 控制反馈垃圾内容的cell是否显示

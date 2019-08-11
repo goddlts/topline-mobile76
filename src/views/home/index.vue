@@ -43,7 +43,7 @@
                   <span>{{ item.comm_count }}评论</span>&nbsp;
                   <span>{{ item.pubdate | fmtDate }}</span>&nbsp;
 
-                  <van-icon class="close" name="close" @click="showAction = true" />
+                  <van-icon class="close" name="close" @click="handleShowAction(item)" />
                 </p>
               </div>
             </van-cell>
@@ -58,7 +58,7 @@
       :value="showAction"
       @input="showAction = $event"
      -->
-    <more-action v-model="showAction"></more-action>
+    <more-action :currentArticle="currentArticle" v-model="showAction"></more-action>
   </div>
 </template>
 
@@ -83,7 +83,9 @@ export default {
       // 激活的tab的索引
       activeTabIndex: 0,
       // 控制MoreAction的显示和隐藏
-      showAction: false
+      showAction: false,
+      // 记录点击x的时候的文章对象
+      currentArticle: {}
     }
   },
 
@@ -175,6 +177,13 @@ export default {
         this.isLoading = false;
         this.count++;
       }, 500);
+    },
+    // 点击x按钮的时候
+    // 显示MoreAction
+    // 把当前点击x对应的文章对象，保持到currentArticle中
+    handleShowAction (article) {
+      this.showAction = true
+      this.currentArticle = article
     }
   }
 }
