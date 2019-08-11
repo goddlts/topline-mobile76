@@ -21,6 +21,14 @@ Validator.localize('zh_cn', zhCN)
 Vue.use(Vant)
 Vue.use(Lazyload)
 
+Vue.prototype.$sleep = (time) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve()
+    }, time);
+  })
+}
+
 Vue.config.productionTip = false
 
 new Vue({
