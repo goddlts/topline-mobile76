@@ -10,7 +10,7 @@
       <!-- 频道列表 -->
       <van-tabs v-model="activeTabIndex">
         <div slot="nav-right">
-          <van-icon class="wap-nav" name="wap-nav" />
+          <van-icon class="wap-nav" name="wap-nav" @click="showChannel = true" />
         </div>
         <van-tab
           v-for="channel in channels"
@@ -62,6 +62,8 @@
       @input="showAction = $event"
      -->
     <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
+    <!-- 频道管理 -->
+    <home-channel v-model="showChannel"></home-channel>
   </div>
 </template>
 
@@ -69,9 +71,11 @@
 import { getChannels } from '@/api/channel'
 import { getArticles } from '@/api/article'
 import MoreAction from './components/MoreAction'
+import HomeChannel from './components/HomeChannel'
 export default {
   components: {
-    MoreAction
+    MoreAction,
+    HomeChannel
   },
   data() {
     return {
@@ -88,7 +92,9 @@ export default {
       // 控制MoreAction的显示和隐藏
       showAction: false,
       // 记录点击x的时候的文章对象
-      currentArticle: {}
+      currentArticle: {},
+      // 控制频道管理弹出界面的隐藏显示
+      showChannel: false
     }
   },
 
