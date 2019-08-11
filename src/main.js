@@ -6,6 +6,7 @@ import Vant, { Lazyload } from 'vant'
 import 'vant/lib/index.css'
 // 设置 REM 的基准值
 import 'amfe-flexible'
+import '@/filters'
 
 import '@/styles/index.less'
 import VeeValidate, { Validator } from 'vee-validate'
