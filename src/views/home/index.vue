@@ -9,6 +9,9 @@
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <!-- 频道列表 -->
       <van-tabs v-model="activeTabIndex">
+        <div slot="nav-right">
+          <van-icon class="wap-nav" name="wap-nav" />
+        </div>
         <van-tab
           v-for="channel in channels"
           :title="channel.name"
@@ -216,6 +219,11 @@ export default {
 .close {
   float: right;
   font-size: 30px;
+}
+.wap-nav {
+  position: fixed;
+  right: 0;
+  line-height: 88px;
 }
 // 在scoped 中设置的样式，如果元素是动态生成的，不起作用
 // 子组件
