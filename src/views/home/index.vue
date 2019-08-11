@@ -43,7 +43,7 @@
                   <span>{{ item.comm_count }}评论</span>&nbsp;
                   <span>{{ item.pubdate | fmtDate }}</span>&nbsp;
 
-                  <van-icon class="close" name="close" />
+                  <van-icon class="close" name="close" @click="showAction = true" />
                 </p>
               </div>
             </van-cell>
@@ -53,7 +53,12 @@
     </van-pull-refresh>
 
     <!-- MoreAction -->
-    <more-action></more-action>
+    <!-- 
+      v-model="showAction"  ====>
+      :value="showAction"
+      @input="showAction = $event"
+     -->
+    <more-action v-model="showAction"></more-action>
   </div>
 </template>
 
@@ -76,7 +81,9 @@ export default {
       // 存储频道列表
       channels: [],
       // 激活的tab的索引
-      activeTabIndex: 0
+      activeTabIndex: 0,
+      // 控制MoreAction的显示和隐藏
+      showAction: false
     }
   },
 
