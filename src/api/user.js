@@ -12,3 +12,13 @@ export const login = ({
     code
   })
 }
+
+/**
+ * 拉黑用户
+ * @param {*} 作者的id
+ */
+export const blackUserList = (id) => {
+  return request.post('/app/v1_0/user/blacklists', {
+    target: id
+  })
+}
