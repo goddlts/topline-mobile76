@@ -33,6 +33,7 @@
       <!-- 我的频道列表 -->
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
+          @click="handleMy(index)"
           v-for="(item, index) in channels"
           :key="item.id">
           <span class="text" :class="{ active: index === activeIndex }">{{ item.name }}</span>
@@ -100,6 +101,15 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    // 点击我的频道中的item
+    handleMy (index) {
+      // 非编辑模式，隐藏对话框，并且在home中激活点击的频道
+      if (!this.showClose) {
+        // 通知home组件，隐藏对话框，激活对应索引的频道
+        this.$emit('handleMy', index)
+      }
+      // 编辑模式
     }
   }
 }

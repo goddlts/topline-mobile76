@@ -63,7 +63,7 @@
      -->
     <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
     <!-- 频道管理 -->
-    <home-channel :channels="channels" :activeIndex="activeTabIndex" v-model="showChannel"></home-channel>
+    <home-channel @handleMy="handleMy" :channels="channels" :activeIndex="activeTabIndex" v-model="showChannel"></home-channel>
   </div>
 </template>
 
@@ -212,6 +212,12 @@ export default {
       })
 
       articles.splice(index, 1)
+    },
+    // 当在频道管理中点击我的频道的时候，触发该方法
+    handleMy (index) {
+      // 隐藏对话框，激活对应索引的频道
+      this.showChannel = false
+      this.activeTabIndex = index
     }
   }
 }
