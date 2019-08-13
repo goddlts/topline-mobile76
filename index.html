@@ -20,15 +20,50 @@
     // let f = _.debounce(fn, 400)
     // f()
     // f()
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
     // setInterval(function() {
     //   console.log('-----------------')
     //   f()
     // }, 100)
+
+    // 函数防抖 的原理
+    // 在指定的时间内，多次调用函数，只执行一次
+    // 当每次调用函数的时候，都会重新计时
+    function debounce (fn, delay) {
+      var timerId
+      return function () {
+        // this
+        clearTimeout(timerId)
+        timerId = setTimeout(() => {
+          fn.apply(this, arguments)
+        }, delay)
+      }
+    }
+
+    function fn () {
+      console.log('abc')
+      console.log(this)
+    }
+
+    var f = debounce(fn, 300)
+    // f()
+    // f()
+    // f()
+    // f()
+    // f()
+
+    // var obj = {fun: f}
+    // obj.fun()
+    // obj.fun()
+    // obj.fun()
+    // obj.fun()
+    // obj.fun()
+    setInterval(function() {
+      console.log('-----------------')
+      f()
+    }, 100)
+
+
+
   </script>
 </body>
 </html>
