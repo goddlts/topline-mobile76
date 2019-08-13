@@ -53,6 +53,7 @@
       <!-- 推荐频道列表 -->
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
+          @click="hanldeRecommend(item)"
           v-for="item in recommendChannels"
           :key="item.id">
           <div class="info">
@@ -116,9 +117,21 @@ export default {
       // 判断是否登录
       if (this.$store.state.user) {
         // 发送请求
+
         return
       }
       // 没有登录，存到本地存储
+      window.localStorage.setItem('channels', JSON.stringify(this.channels))
+    },
+    // 点击推荐频道的item
+    hanldeRecommend (item) {
+      this.channels.push(item)
+      // 判断是否登录
+      if (this.$store.state.user) {
+        // 登录,发送请求
+        return
+      }
+      // 未登录，存到本地存储
       window.localStorage.setItem('channels', JSON.stringify(this.channels))
     }
   }
