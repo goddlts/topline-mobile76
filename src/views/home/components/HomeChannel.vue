@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { getAllChannels, deleteUserChannel } from '@/api/channel'
+import { getAllChannels, deleteUserChannel, resetUserChannels } from '@/api/channel'
 export default {
   name: 'HomeChannel',
   props: ['value', 'channels', 'activeIndex'],
@@ -130,11 +130,25 @@ export default {
       window.localStorage.setItem('channels', JSON.stringify(this.channels))
     },
     // 点击推荐频道的item
-    hanldeRecommend (item) {
+    async hanldeRecommend (item) {
       this.channels.push(item)
       // 判断是否登录
       if (this.$store.state.user) {
         // 登录,发送请求
+        // channels ==> [{id:1, seq: 1}]
+        // 把this.channels复制一份，因为直接删除this.channels会影响home组件
+        let channels = [ ...this.channels ]
+        channels = channels.splice(1).map((item, index) => {
+          return {
+            id: item.id,
+            seq: index + 1
+          }
+        })
+        try {
+          await resetUserChannels(channels)
+        } catch (err) {
+          console.log(err)
+        }
         return
       }
       // 未登录，存到本地存储

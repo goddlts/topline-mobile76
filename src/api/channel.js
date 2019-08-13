@@ -23,3 +23,14 @@ export const getAllChannels = () => {
 export const deleteUserChannel = (id) => {
   return request.delete(`/app/v1_0/user/channels/${id}`)
 }
+
+/**
+ * 重置用户的频道
+ * channels ==> [{id:1, seq: 0}]
+ * @param {*} channels 
+ */
+export const resetUserChannels = (channels) => {
+  return request.put('/app/v1_0/user/channels', {
+    channels
+  })
+}
