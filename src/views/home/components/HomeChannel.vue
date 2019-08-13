@@ -17,7 +17,17 @@
             type="danger"
             plain
             size="mini"
+            v-show="!showClose"
+            @click="showClose = true"
           >编辑</van-button>
+
+          <van-button
+            type="danger"
+            plain
+            size="mini"
+            v-show="showClose"
+            @click="showClose = false"
+          >完成</van-button>
         </div>
       </div>
       <!-- 我的频道列表 -->
@@ -26,7 +36,7 @@
           v-for="(item, index) in channels"
           :key="item.id">
           <span class="text" :class="{ active: index === activeIndex }">{{ item.name }}</span>
-          <van-icon class="close-icon" name="close" />
+          <van-icon class="close-icon" name="close" v-show="showClose && index !== 0" />
         </van-grid-item>
       </van-grid>
     </div>
@@ -56,12 +66,12 @@
 <script>
 export default {
   name: 'HomeChannel',
-  props: ['value', 'channels', 'activeIndex']
-  // data () {
-  //   return {
-  //     show: true
-  //   }
-  // }
+  props: ['value', 'channels', 'activeIndex'],
+  data () {
+    return {
+      showClose: false
+    }
+  }
 }
 </script>
 
