@@ -36,7 +36,7 @@
           @click="handleMy(index)"
           v-for="(item, index) in channels"
           :key="item.id">
-          <span class="text" :class="{ active: index === activeIndex }">{{ item.name }}</span>
+          <span class="text" :class="{ active: index === activeIndex && !showClose }">{{ item.name }}</span>
           <van-icon class="close-icon" name="close" v-show="showClose && index !== 0" />
         </van-grid-item>
       </van-grid>
@@ -108,8 +108,18 @@ export default {
       if (!this.showClose) {
         // 通知home组件，隐藏对话框，激活对应索引的频道
         this.$emit('handleMy', index)
-      }
+        return
+      } 
+
       // 编辑模式
+      this.channels.splice(index, 1)
+      // 判断是否登录
+      if (this.$store.state.user) {
+        // 发送请求
+        return
+      }
+      // 没有登录，存到本地存储
+      window.localStorage.setItem('channels', JSON.stringify(this.channels))
     }
   }
 }
