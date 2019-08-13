@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, deleteUserChannel } from '@/api/channel'
 export default {
   name: 'HomeChannel',
   props: ['value', 'channels', 'activeIndex'],
@@ -104,7 +104,7 @@ export default {
       }
     },
     // 点击我的频道中的item
-    handleMy (index) {
+    async handleMy (index) {
       // 非编辑模式，隐藏对话框，并且在home中激活点击的频道
       if (!this.showClose) {
         // 通知home组件，隐藏对话框，激活对应索引的频道
@@ -113,13 +113,19 @@ export default {
       } 
 
       // 编辑模式
+      const id = this.channels[index].id
       this.channels.splice(index, 1)
       // 判断是否登录
       if (this.$store.state.user) {
-        // 发送请求
-
+        // 发送请求, 删除我的频道中指定的项
+        try {
+          await deleteUserChannel(id)
+        } catch (err) {
+          console.log(err)
+        }
         return
       }
+      
       // 没有登录，存到本地存储
       window.localStorage.setItem('channels', JSON.stringify(this.channels))
     },

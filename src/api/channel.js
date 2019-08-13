@@ -15,3 +15,11 @@ export const getChannels = () => {
 export const getAllChannels = () => {
   return request.get('/app/v1_0/channels')
 }
+
+/**
+ * 删除用户的频道
+ * @param {*} 频道的id
+ */
+export const deleteUserChannel = (id) => {
+  return request.delete(`/app/v1_0/user/channels/${id}`)
+}
