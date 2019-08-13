@@ -52,7 +52,7 @@
       <!-- 推荐频道列表 -->
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
-          v-for="item in allChannels"
+          v-for="item in recommendChannels"
           :key="item.id">
           <div class="info">
             <span class="text">{{ item.name }}</span>
@@ -68,6 +68,18 @@ import { getAllChannels } from '@/api/channel'
 export default {
   name: 'HomeChannel',
   props: ['value', 'channels', 'activeIndex'],
+  computed: {
+    recommendChannels () {
+      // 我的频道的所有id
+      const ids = this.channels.map((item) => {
+        return item.id
+      })
+
+      return this.allChannels.filter((item) => {
+        return !ids.includes(item.id)
+      })
+    }
+  },
   data () {
     return {
       showClose: false,
