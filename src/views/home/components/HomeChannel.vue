@@ -49,13 +49,13 @@
           <span class="desc">点击添加频道</span>
         </div>
       </div>
+      <!-- 推荐频道列表 -->
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
-          v-for="value in 8"
-          :key="value"
-          text="文字">
+          v-for="item in allChannels"
+          :key="item.id">
           <div class="info">
-            <span class="text">文字</span>
+            <span class="text">{{ item.name }}</span>
           </div>
         </van-grid-item>
       </van-grid>
@@ -64,12 +64,30 @@
 </template>
 
 <script>
+import { getAllChannels } from '@/api/channel'
 export default {
   name: 'HomeChannel',
   props: ['value', 'channels', 'activeIndex'],
   data () {
     return {
-      showClose: false
+      showClose: false,
+      // 存储所有的频道列表
+      allChannels: []
+    }
+  },
+  created () {
+    // 加载所有的频道列表
+    this.loadAllChannels()
+  },
+  methods: {
+    // 加载所有频道
+    async loadAllChannels () {
+      try {
+        const data = await getAllChannels()
+        this.allChannels = data.channels
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
