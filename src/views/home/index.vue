@@ -63,7 +63,7 @@
      -->
     <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
     <!-- 频道管理 -->
-    <home-channel v-model="showChannel"></home-channel>
+    <home-channel :channels="channels" :activeIndex="activeTabIndex" v-model="showChannel"></home-channel>
   </div>
 </template>
 
