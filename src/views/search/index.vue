@@ -36,11 +36,12 @@
         </div>
       </van-cell>
       <van-cell
-        @click="handleDelete(index)"
+        @click="onSearch(item)"
         v-for="(item, index) in histories"
         :key="item"
         :title="item">
         <van-icon
+          @click="handleDelete(index)"
           v-show="showClose"
           slot="right-icon"
           name="close"
@@ -79,6 +80,14 @@ export default {
         // 如果没有登录， 记录到本地存储
         window.localStorage.setItem('history', JSON.stringify(this.histories))
       }
+
+      // 跳转到搜索结果页面，并且传递搜索的数据
+      this.$router.push({
+        name: 'search-result',
+        params: {
+          q: value
+        }
+      })
     },
     // 用户在文本输入内容的时候，获取搜索建议
     handleSuggestion: _.debounce(async function () {
