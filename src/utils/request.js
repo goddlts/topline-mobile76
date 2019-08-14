@@ -4,6 +4,7 @@ import JSONbig from 'json-bigint'
 
 // 1 创建axios实例
 const request = axios.create({
+  // baseURL: 'http://toutiao.course.itcast.cn'
   baseURL: 'http://ttapi.research.itcast.cn'
 })
 

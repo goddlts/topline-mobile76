@@ -16,6 +16,33 @@
         :title="item"
         icon="search" />
     </van-cell-group>
+
+    <!-- 历史记录 -->
+    <van-cell-group>
+      <van-cell
+        title="历史记录">
+        <van-icon
+          v-show="!showClose"
+          @click="showClose = true"
+          slot="right-icon"
+          name="delete"
+          style="line-height: inherit;"
+        />
+        <div v-show="showClose">
+          <span>全部删除</span>&nbsp;
+          <span @click="showClose = false">完成</span>
+        </div>
+      </van-cell>
+      <van-cell
+        title="Hello">
+        <van-icon
+          v-show="showClose"
+          slot="right-icon"
+          name="close"
+          style="line-height: inherit;"
+        />
+      </van-cell>
+    </van-cell-group>
   </div>
 </template>
 
@@ -27,7 +54,9 @@ export default {
     return {
       value: '',
       // 存储搜索建议的列表
-      suggestionList: []
+      suggestionList: [],
+      // 控制关闭按钮的显示和隐藏
+      showClose: false
     }
   },
   methods: {

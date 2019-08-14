@@ -15,8 +15,6 @@ export const getArticles = ({
       with_top: withTop
     }
   })
-
-  
 }
 
 /**
