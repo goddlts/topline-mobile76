@@ -9,8 +9,9 @@
       @input="handleSuggestion"
     />
     <!-- 搜索建议 -->
-    <van-cell-group>
+    <van-cell-group v-show="suggestionList.length">
       <van-cell
+        @click="onSearch(item)"
         v-for="item in suggestionList"
         :key="item"
         :title="item"
@@ -18,7 +19,7 @@
     </van-cell-group>
 
     <!-- 历史记录 -->
-    <van-cell-group>
+    <van-cell-group v-show="!suggestionList.length">
       <van-cell
         title="历史记录">
         <van-icon
@@ -34,7 +35,9 @@
         </div>
       </van-cell>
       <van-cell
-        title="Hello">
+        v-for="item in histories"
+        :key="item"
+        :title="item">
         <van-icon
           v-show="showClose"
           slot="right-icon"
@@ -56,12 +59,24 @@ export default {
       // 存储搜索建议的列表
       suggestionList: [],
       // 控制关闭按钮的显示和隐藏
-      showClose: false
+      showClose: false,
+      // 历史记录
+      histories: JSON.parse(window.localStorage.getItem('history')) || []
     }
   },
   methods: {
-    onSearch () {
-      console.log('xxx')
+    onSearch (value) {
+      // value 搜索的关键字
+      value = value || this.value
+      // console.log('xxx')
+
+      // 记录搜索历史
+      if (!this.histories.includes(value)) {
+        this.histories.push(value)
+        // 如果登录，发送请求
+        // 如果没有登录， 记录到本地存储
+        window.localStorage.setItem('history', JSON.stringify(this.histories))
+      }
     },
     // 用户在文本输入内容的时候，获取搜索建议
     handleSuggestion: _.debounce(async function () {
