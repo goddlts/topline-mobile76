@@ -12,7 +12,7 @@
       <!-- 文章标题 -->
       <h2 class="article-title">{{ article.title }}</h2>
       <!-- 作者信息 -->
-      <auth-info></auth-info>
+      <auth-info :article="article"></auth-info>
       <!-- 文章内容 -->
       <div class="article-content" v-html="article.content">
       </div>

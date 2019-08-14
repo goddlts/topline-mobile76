@@ -1,24 +1,25 @@
 <template>
   <div class="auth-info">
     <div class="base-info">
-      <img class="avatar" src="https://img.yzcdn.cn/vant/logo.png" alt="">
+      <img class="avatar" :src="article.aut_photo" alt="">
       <div>
-        <p>黑马程序员</p>
-        <p>3天前</p>
+        <p>{{ article.aut_name }}</p>
+        <p>{{ article.pubdate | fmtDate }}</p>
       </div>
     </div>
     <div>
       <van-button
-        type="danger"
+        :type="article.is_followed ? 'default' : 'danger'"
         :loading="false"
-      >关注</van-button>
+      >{{ article.is_followed ? '已' : '' }}关注</van-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AuthInfo'
+  name: 'AuthInfo',
+  props: ['article']
 }
 </script>
 
