@@ -9,6 +9,7 @@
     </div>
     <div>
       <van-button
+        @click="handleFollow"
         :type="article.is_followed ? 'default' : 'danger'"
         :loading="false"
       >{{ article.is_followed ? '已' : '' }}关注</van-button>
@@ -17,9 +18,31 @@
 </template>
 
 <script>
+import { followUser, unFollowUser } from '@/api/user'
+
 export default {
   name: 'AuthInfo',
-  props: ['article']
+  props: ['article'],
+  methods: {
+    async handleFollow () {
+      // 判断用户是否登录，如果未登录的话提示
+
+      try {
+        // 判断当前是否关注
+        if (this.article.is_followed) {
+          // 如果已关注 unFollowUser，is_followed = false
+          await unFollowUser(this.article.aut_id)
+          this.article.is_followed = false
+        } else {
+          // 如果未关注 followUser，is_followed = true
+          await followUser(this.article.aut_id)
+          this.article.is_followed = true
+        }
+      } catch (err) {
+        this.$toast.fail('操作失败' + err)
+      }
+    }
+  }
 }
 </script>
 
