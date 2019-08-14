@@ -26,7 +26,9 @@ export default {
   methods: {
     async handleFollow () {
       // 判断用户是否登录，如果未登录的话提示
-
+      if (!this.$checkLogin()) {
+        return
+      }
       try {
         // 判断当前是否关注
         if (this.article.is_followed) {
