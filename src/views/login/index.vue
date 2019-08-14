@@ -100,7 +100,9 @@ export default {
         this.$store.commit('setUser', data)
         // 跳转到首页
         this.$router.push({
-          name: 'home'
+          // 如果login的url上包含redirect来源地址
+          // 跳转到来源的位置，如果没有的话跳转到首页
+          path: this.$route.query.redirect || '/'
         })
         this.$toast.success('登录成功')
       } catch (err) {

@@ -13,7 +13,11 @@ export default {
       }).then(() => {
         // on confirm
         this.$router.push({
-          name: 'login'
+          name: 'login',
+          query: {
+            // 在url上记录下来，跳转之前的地址
+            redirect: this.$route.fullPath
+          }
         })
       }).catch(() => {
         // on cancel
