@@ -18,7 +18,36 @@
         v-for="article in list"
         :key="article.art_id.toString()"
         :title="article.title"
-      />
+      >
+        <!-- 图文列表展示 -->
+        <div slot="label">
+          <template v-if="article.cover.type">
+            <van-grid :border="false" :column-num="3">
+              <van-grid-item
+                v-for="(img, index) in article.cover.images"
+                :key="index">
+                <van-image lazy-load :src="img" />
+              </van-grid-item>
+            </van-grid>
+          </template>
+          <p>
+            <span>{{ article.aut_name }}</span>&nbsp;
+            <span>{{ article.comm_count }}评论</span>&nbsp;
+            <span>{{ article.pubdate | fmtDate }}</span>&nbsp;
+          </p>
+          <van-grid :column-num="3">
+            <van-grid-item
+              text="评论"
+            />
+            <van-grid-item
+              text="点赞"
+            />
+            <van-grid-item
+              text="转发"
+            />
+          </van-grid>
+        </div>
+      </van-cell>
     </van-list>
   </div>
 </template>
