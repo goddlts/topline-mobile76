@@ -23,6 +23,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "search-result" */ '@/views/search-result/index.vue')
     },
     {
+      name: 'article',
+      path: '/article/:id',
+      props: true,
+      component: () => import(/* webpackChunkName: "article" */ '@/views/article/index.vue')
+    },
+    {
       path: '/',
       component: () => import(/* webpackChunkName: "layout" */ '@/views/layout-tabbar/index.vue'),
       children: [
