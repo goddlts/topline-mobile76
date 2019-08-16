@@ -20,3 +20,19 @@ export const getComments = ({
     }
   })
 }
+
+// 发布评论（文章，评论）
+export const sendComment = ({
+  // 评论的目标，文章的id，评论的id
+  target,
+  content,
+  // 如果给文章评论，不需要设置
+  // 如果给评论回复，必须设置成文章的id
+  artId
+}) => {
+  return request.post('/app/v1_0/comments', {
+    target,
+    content,
+    art_id: artId
+  })
+}
