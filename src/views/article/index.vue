@@ -20,7 +20,7 @@
       <more-action :article="article"></more-action>
 
       <!-- 评论列表 -->
-      <comment-list></comment-list>
+      <comment-list :isArticle="true" :id="id"></comment-list>
     </div>
   </div>
 </template>
@@ -38,6 +38,7 @@ export default {
     MoreAction,
     CommentList
   },
+  // 文章的id
   props: ['id'],
   data () {
     return {

@@ -6,13 +6,13 @@
     @load="onLoad"
   >
     <van-cell
-      v-for="item in list"
-      :key="item"
-      :title="'作者的名字'"
+      v-for="comment in comments"
+      :key="comment.com_id.toString()"
+      :title="comment.aut_name"
     >
       <!-- 头像 -->
       <div slot="icon">
-        <img class="avatar" src="http://toutiao.meiduo.site/FkDgf-9AIj_0xLKeuo2HjmbcoGaH" alt="">
+        <img class="avatar" :src="comment.aut_photo" alt="">
       </div>
       <!-- 右边的按钮 -->
       <div slot="default">
@@ -20,38 +20,46 @@
       </div>
       <!-- 评论内容 -->
       <div slot="label">
-        <p>评论内容</p>
-        <span>时间</span> &nbsp; <span>回复 0</span>
+        <p>{{ comment.content }}</p>
+        <span>{{ comment.pubdate | fmtDate }}</span> &nbsp; <span>回复 {{ comment.reply_count }}</span>
       </div>
     </van-cell>
   </van-list>
 </template>
 
 <script>
+import { getComments } from '@/api/comment'
 export default {
+  name: 'CommentList',
+  // 接收外部调用传递的参数 isArticle true 获取文章评论，false 获取评论的评论
+  // id 文章的id 或者 评论的id
+  props: ['isArticle', 'id'],
   data() {
     return {
-      list: [],
+      comments: [],
       loading: false,
-      finished: false
-    };
+      finished: false,
+      // 记录最后一条评论的id
+      offset: null
+    }
   },
 
   methods: {
-    onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true;
-        }
-      }, 500);
+    async onLoad() {
+      const data = await getComments({
+        isArticle: this.isArticle,
+        source: this.id,
+        offset: this.offset
+      })
+      // 获取评论列表，获取最后一条数据的id
+      this.comments.push(...data.results)
+      this.offset = data.last_id
+      
+      this.loading = false
+      // 判断是否所有数据都已经加载
+      if (data.results.length === 0) {
+        this.finished = true
+      }
     }
   }
 }
