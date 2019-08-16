@@ -49,3 +49,27 @@ export const reportArticle = ({
 export const getArticle = (id) => {
   return request.get(`/app/v1_0/articles/${id}`)
 }
+
+// 不喜欢文章
+export const dislikesArticle = (id) => {
+  return request.post('/app/v1_0/article/dislikes', {
+    target: id
+  })
+}
+
+// 点赞
+export const likesArticle = (id) => {
+  return request.post('/app/v1_0/article/likings', {
+    target: id
+  })
+}
+
+// 取消不喜欢
+export const unDislikesArticle = (id) => {
+  return request.delete(`/app/v1_0/article/dislikes/${id}`)
+}
+
+// 取消点赞
+export const unLikesArticle = (id) => {
+  return request.delete(`/app/v1_0/article/likings/${id}`)
+}
