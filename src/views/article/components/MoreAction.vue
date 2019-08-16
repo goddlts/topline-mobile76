@@ -1,18 +1,18 @@
 <template>
   <div class="more-action">
     <van-button
-      icon="star-o"
+      :icon="isLike ? 'star' : 'star-o'"
       round
-      :loading="false"
+      :loading="likeLoading"
       type="default"
-    >点赞</van-button>
+    >{{ isLike ? '取消' : '' }}点赞</van-button>
 
     <van-button
-      icon="delete"
+      :icon="isDislike ? 'clear' : 'close'"
       round
-      :loading="false"
+      :loading="disLikeLoading"
       type="default"
-    >不喜欢</van-button>
+    >{{ isDislike ? '取消' : '' }}不喜欢</van-button>
   </div>
 </template>
 
@@ -25,7 +25,25 @@ import {
 } from '@/api/article'
 
 export default {
-  name: 'MoreAction'
+  name: 'MoreAction',
+  props: ['article'],
+  computed: {
+    // 用户对文章的态度, -1: 无态度，0-不喜欢，1-点赞	
+    // 是否点赞
+    isLike () {
+      return this.article.attitude === 1
+    },
+    // 是否不喜欢
+    isDislike () {
+      return this.article.attitude === 0
+    }
+  },
+  data () {
+    return {
+      likeLoading: false,
+      disLikeLoading: false
+    }
+  }
 }
 </script>
 
