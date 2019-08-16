@@ -24,6 +24,8 @@
 
       <!-- 发布评论, 给文章发布评论不需要设置artId -->
       <send-comment :id="id"></send-comment>
+      <!-- 点击回复的时候，弹出框 -->
+      <reply-list></reply-list>
     </div>
   </div>
 </template>
@@ -33,6 +35,7 @@ import AuthInfo from './components/AuthInfo'
 import MoreAction from './components/MoreAction'
 import CommentList from './components/CommentList'
 import SendComment from './components/SendComment'
+import ReplyList from './components/ReplyList'
 import { getArticle } from '@/api/article'
 
 export default {
@@ -41,7 +44,8 @@ export default {
     AuthInfo,
     MoreAction,
     CommentList,
-    SendComment
+    SendComment,
+    ReplyList
   },
   // 文章的id
   props: ['id'],
