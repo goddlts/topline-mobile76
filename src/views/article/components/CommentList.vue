@@ -21,7 +21,7 @@
       <!-- 评论内容 -->
       <div slot="label">
         <p>{{ comment.content }}</p>
-        <span>{{ comment.pubdate | fmtDate }}</span> &nbsp; <span>回复 {{ comment.reply_count }}</span>
+        <span>{{ comment.pubdate | fmtDate }}</span> &nbsp; <span @click="handleReply(comment)">回复 {{ comment.reply_count }}</span>
       </div>
     </van-cell>
   </van-list>
@@ -60,6 +60,13 @@ export default {
       if (data.results.length === 0) {
         this.finished = true
       }
+    },
+    // 点击回复按钮
+    // 1. 设置store中的控制replylist显示隐藏的变量
+    // 2. 设置store中的currentComment为当前评论
+    handleReply (comment) {
+      this.$store.commit('setShowReplyList', true)
+      this.$store.commit('setCurrentComment', comment)
     }
   }
 }
