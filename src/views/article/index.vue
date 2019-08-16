@@ -25,7 +25,7 @@
       <!-- 发布评论, 给文章发布评论不需要设置artId -->
       <send-comment :id="id"></send-comment>
       <!-- 点击回复的时候，弹出框 -->
-      <reply-list></reply-list>
+      <reply-list :id="id"></reply-list>
     </div>
   </div>
 </template>

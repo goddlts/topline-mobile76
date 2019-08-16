@@ -37,15 +37,20 @@
     <h6>全部回复</h6>
     <comment-list :isArticle="false" :id="$store.state.currentComment.com_id.toString()"></comment-list>
     <!-- 发布评论 -->
+    <send-comment :id="$store.state.currentComment.com_id.toString()" :artId="id"></send-comment>
   </van-popup>
 </template>
 
 <script>
 import CommentList from './CommentList'
+import SendComment from './SendComment'
 export default {
   name: 'ReplyList',
+  // 文章的id
+  props: ['id'],
   components: {
-    CommentList
+    CommentList,
+    SendComment
   }
 }
 </script>
