@@ -21,6 +21,9 @@
 
       <!-- 评论列表 -->
       <comment-list :isArticle="true" :id="id"></comment-list>
+
+      <!-- 发布评论 -->
+      <send-comment></send-comment>
     </div>
   </div>
 </template>
@@ -29,6 +32,7 @@
 import AuthInfo from './components/AuthInfo'
 import MoreAction from './components/MoreAction'
 import CommentList from './components/CommentList'
+import SendComment from './components/SendComment'
 import { getArticle } from '@/api/article'
 
 export default {
@@ -36,7 +40,8 @@ export default {
   components: {
     AuthInfo,
     MoreAction,
-    CommentList
+    CommentList,
+    SendComment
   },
   // 文章的id
   props: ['id'],
