@@ -8,7 +8,7 @@
     />
       <!-- @click-right="btnSave" -->
     <van-cell-group>
-      <van-cell title="头像" is-link>
+      <van-cell title="头像" is-link @click="showUpload=true">
         <div slot="default">
           <img width="30" height="30" :src="currentUser.photo" alt="">
         </div>
@@ -21,7 +21,7 @@
     </van-cell-group>
 
     <!-- 弹出上传头像 -->
-    <upload-photo></upload-photo>
+    <upload-photo v-model="showUpload"></upload-photo>
   </div>
 </template>
 
@@ -35,7 +35,9 @@ export default {
   },
   data () {
     return {
-      currentUser: {}
+      currentUser: {},
+      // 控制upload弹出层的显示隐藏
+      showUpload: false
     }
   },
   created () {
