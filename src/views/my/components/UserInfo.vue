@@ -1,6 +1,6 @@
 <template>
   <van-cell-group class="user-info">
-    <van-cell class="base-info" is-link :border="false">
+    <van-cell class="base-info" is-link :border="false" to="/user-profile">
       <div slot="title">
         <img class="avatar" :src="currentUser.photo" alt="">
         <span class="title">{{ currentUser.name }}</span>

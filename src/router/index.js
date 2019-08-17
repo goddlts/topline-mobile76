@@ -29,6 +29,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "article" */ '@/views/article/index.vue')
     },
     {
+      name: 'user-profile',
+      path: '/user-profile',
+      component: () => import(/* webpackChunkName: "user-profile" */ '@/views/user-profile/index.vue')
+    },
+    {
       path: '/',
       component: () => import(/* webpackChunkName: "layout" */ '@/views/layout-tabbar/index.vue'),
       children: [
