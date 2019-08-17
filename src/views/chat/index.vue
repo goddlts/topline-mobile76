@@ -21,12 +21,34 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
 export default {
   data () {
     return {
       value: '',
-      commentLoading: false
+      commentLoading: false,
+      socket: null
     }
+  },
+  created () {
+    // 创建socket对象，链接服务器
+    this.socket = io('http://ttapi.research.itcast.cn', {
+      query: {
+        token: this.$store.state.user.token
+      }
+    })
+    // 注册事件
+    this.socket.on('connect', () => {
+      console.log('链接成功')
+      this.socket.send({ msg: 'hello', timestamp: Date.now() })
+    })
+    // 注册事件，接收服务器给我发的数据
+    this.socket.on('message', (data) => {
+      console.log(data)
+    })
+    this.socket.on('disconnect', () => {
+      console.log('关闭链接')
+    })
   },
   methods: {
     send () {}
