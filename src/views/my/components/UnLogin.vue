@@ -1,7 +1,7 @@
 <template>
   <div class="not-login">
     <div class="circle">
-      <span>登录</span>
+      <span @click="$router.push({ name: 'login', query: { redirect: '/my' } })">登录</span>
     </div>
   </div>
 </template>
