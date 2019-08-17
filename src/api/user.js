@@ -40,3 +40,8 @@ export const followUser = (id) => {
     target: id
   })
 }
+
+// 获取登录用户的信息
+export const getUserInfo = () => {
+  return request.get('/app/v1_0/user')
+}
