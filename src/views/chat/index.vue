@@ -2,14 +2,17 @@
   <div class="page-user-chat">
     <van-nav-bar fixed left-arrow @click-left="$router.back()" title="小智同学"></van-nav-bar>
     <div class="chat-list">
-      <div class="chat-item left">
+      <div
+        v-for="(msg, index) in messages"
+        :key="msg.timestamp + index"
+        class="chat-item" :class="msg.robot ? 'left' : 'right'">
         <van-image fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <div class="chat-pao">ewqewq</div>
+        <div class="chat-pao">{{ msg.msg }}</div>
       </div>
-      <div class="chat-item right">
+      <!-- <div class="chat-item right">
         <div class="chat-pao">ewqewq</div>
         <van-image  fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
-      </div>
+      </div> -->
     </div>
     <div class="reply-container van-hairline--top">
       <van-field v-model="value" placeholder="说点什么...">
@@ -27,7 +30,9 @@ export default {
     return {
       value: '',
       commentLoading: false,
-      socket: null
+      socket: null,
+      // 记录所有的消息
+      messages: []
     }
   },
   created () {
@@ -40,18 +45,33 @@ export default {
     // 注册事件
     this.socket.on('connect', () => {
       console.log('链接成功')
-      this.socket.send({ msg: 'hello', timestamp: Date.now() })
+      // this.socket.send({ msg: 'hello', timestamp: Date.now() })
     })
     // 注册事件，接收服务器给我发的数据
     this.socket.on('message', (data) => {
-      console.log(data)
+      // console.log(data)    { msg: '11', timestamp: 11, robot: true }
+      this.messages.push({
+        robot: true,
+        ...data
+      })
     })
     this.socket.on('disconnect', () => {
       console.log('关闭链接')
     })
   },
   methods: {
-    send () {}
+    send () {
+      var obj = {
+        msg: this.value,
+        timestamp: Date.now(),
+        robot: false
+      }
+      this.messages.push(obj)
+      // 发送给服务器
+      if (this.socket) {
+        this.socket.send(obj)
+      }
+    }
   }
 }
 </script>
