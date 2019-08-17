@@ -1,7 +1,7 @@
 <template>
   <div class="page-user-chat">
     <van-nav-bar fixed left-arrow @click-left="$router.back()" title="小智同学"></van-nav-bar>
-    <div class="chat-list">
+    <div ref="chatList" class="chat-list">
       <div
         v-for="(msg, index) in messages"
         :key="msg.timestamp + index"
@@ -54,6 +54,7 @@ export default {
         robot: true,
         ...data
       })
+      this.updateScroll()
     })
     this.socket.on('disconnect', () => {
       console.log('关闭链接')
@@ -71,6 +72,15 @@ export default {
       if (this.socket) {
         this.socket.send(obj)
       }
+
+      this.updateScroll()
+    },
+    // 更新chatlist的滚动条位置
+    updateScroll () {
+      // 当数据更新之后，的下一次渲染结束才会执行
+      this.$nextTick(() => {
+        this.$refs.chatList.scrollTop = this.$refs.chatList.scrollHeight
+      })
     }
   }
 }
