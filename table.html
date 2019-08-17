@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="txt1">
+  <input type="text" id="txt2">
+  <button id="btn">按钮</button>
+
+  <script>
+    
+    var btn = document.querySelector('#btn')
+    btn.onclick = function () {
+      var t1 = document.querySelector('#txt1')
+      var t2 = document.querySelector('#txt2')
+      var rowNum = parseInt(t1.value)
+      var columnNum = parseInt(t2.value)
+      //
+      createTable(rowNum, columnNum)
+    }
+
+    function createTable(row, column) {
+      // 判断有没有生成过table
+      var table = document.querySelector('#mytable')
+      if (table) {
+        // 如果有的话，删除再生成
+        document.body.removeChild(table)
+      }
+
+      table = document.createElement('table')
+      console.log(table)
+      table.id = 'mytable'
+      table.border = '1px'
+      document.body.appendChild(table) 
+
+      var tbody = document.createElement('tbody')
+      table.appendChild(tbody)
+
+      // 循环行
+      for (var i = 0; i < row; i++) {
+        var tr = document.createElement('tr')
+        tbody.appendChild(tr)
+        // 循环列
+        for (var j = 0; j < column; j++) {
+          var td = document.createElement('td')
+          tr.appendChild(td)
+          td.textContent = `第${i + 1}行，第${j + 1}列`
+        }
+      }
+    }
+  </script>
+</body>
+</html>
