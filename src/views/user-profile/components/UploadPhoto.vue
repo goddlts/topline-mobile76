@@ -19,6 +19,8 @@ import Vue from 'vue'
 import { ImagePreview } from 'vant'
 
 Vue.use(ImagePreview)
+
+import { uploadPhoto } from '@/api/user'
 export default {
   name: 'UploadPhoto',
   props: ['value'],
@@ -46,13 +48,29 @@ export default {
       })
     },
     // 处理文件上传
-    handleUpload () {
+    async handleUpload () {
       // 1. 提示用户是否上传
       this.$dialog.confirm({
         message: '是否确认该图片作为头像'
-      }).then(() => {
+      }).then(async () => {
+        // 正在上传的提示
+        const toast = this.$toast.loading({
+          duration: 0,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          loadingType: 'spinner',
+          message: '正在上传...'
+        })
         // on confirm
         // 2. 上传
+        try {
+          const data = await uploadPhoto('photo', this.$refs.file.files[0])
+          // 当上传成功之后，要获取最新上传图片的路径，更新父组件中的头像
+          this.$emit('upload-success', data.photo)
+          this.$toast.success('上传成功')
+        } catch (err) {
+          this.$toast.fail('上传失败' + err)
+        }
+        toast.clear()
       }).catch(() => {
         // on cancel
       });
