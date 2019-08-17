@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="txt">
+  <input type="button" value="按钮" id="btn">
+
+  <script>
+    // 1. 创建ws
+    var ws = new WebSocket('wss://echo.websocket.org')
+
+    ws.onopen = function () {
+      ws.send('hello')
+    }
+    ws.onmessage = function (e) {
+      // 接收服务器给我发的消息
+      console.log('服务器发送的消息：' + e.data)
+    }
+    ws.onclose = function () {
+      console.log('close')
+    }
+
+    document.querySelector('#btn').onclick = function () {
+      var t = document.querySelector('#txt').value
+      if (ws.readyState === 1) {
+        ws.send(t)
+      }
+    }
+  </script>
+</body>
+</html>
