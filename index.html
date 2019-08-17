@@ -7,119 +7,29 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./node_modules/lodash/lodash.js"></script>
-
+  <input type="file" id="file">
+  <img src="" alt="" id="img">
   <script>
-    // function fn () {
-    //   console.log('xxx')
-    // }
-    
-    // 函数防抖 debounce
-    // 在指定的时间内，多次调用函数，只执行一次
-    // 当每次调用函数的时候，都会重新计时
-    // let f = _.debounce(fn, 400)
-    // f()
-    // f()
-    // setInterval(function() {
-    //   console.log('-----------------')
-    //   f()
-    // }, 100)
+    var file = document.querySelector('#file')
+    var img = document.querySelector('#img')
 
-    // 函数防抖 的原理
-    // 在指定的时间内，多次调用函数，只执行一次
-    // 当每次调用函数的时候，都会重新计时
-    // function debounce (fn, delay) {
-    //   var timerId
-    //   return function () {
-    //     // this
-    //     clearTimeout(timerId)
-    //     timerId = setTimeout(() => {
-    //       fn.apply(this, arguments)
-    //     }, delay)
-    //   }
-    // }
+    // 当file中选择了文件
+    file.onchange = function () {
+      console.log(file.files)
+      // 在h5，增加了fileReader
+      // var fileReader = new FileReader()
+      // fileReader.readAsDataURL(file.files[0])
+      // fileReader.onload = function () {
+      //   // console.log(fileReader.result)
+      //   // 经过base64编码的字符串形式，我们选择的是一个图片
+      //   img.src = fileReader.result
+      // }
 
-    // function fn () {
-    //   console.log('abc')
-    //   console.log(this)
-    // }
-
-    // var f = debounce(fn, 300)
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
-
-    // var obj = {fun: f}
-    // obj.fun()
-    // obj.fun()
-    // obj.fun()
-    // obj.fun()
-    // obj.fun()
-    // setInterval(function() {
-    //   console.log('-----------------')
-    //   f()
-    // }, 100)
-
-
-
-    // 函数节流  多次调用函数，在指定的之间内只执行一次
-    // 立即执行一次函数，过指定的时间再执行一次，不管调用多少次
-    // function fn() {
-    //   console.log('fn')
-    // }
-
-    // var f = _.throttle(fn, 400)
-    // // f()
-    // // f()
-    // // f()
-    
-    // setInterval(() => {
-    //   console.log('---------')
-    //   f()
-    // }, 100);
-
-
-    // 函数节流原理
-    function throttle (fn, delay) {
-      // last 记录fn最后一次执行的时间
-      var timerId, last
-      return function () {
-        // 当前时间
-        var now = Date.now()
-        
-        if (last && now < last + delay) {
-          clearTimeout(timerId)
-          timerId = setTimeout(() => {
-            last = now
-            fn.apply(this, arguments)
-          }, delay);
-        } else {
-          // 时间到了或者第一次调用
-          last = now
-          fn.apply(this, arguments)
-        }
-      }
+      // 返回一个在内存中临时可用的图片的地址
+      const url = URL.createObjectURL(file.files[0])
+      // console.log(url)
+      img.src = url
     }
-
-
-    function fn () {
-      console.log('xxx')
-    }
-
-    var f = throttle(fn, 400)
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
-
-    setInterval(() => {
-      console.log('---------')
-      f()
-    }, 100);
   </script>
 </body>
 </html>
