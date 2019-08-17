@@ -45,3 +45,8 @@ export const followUser = (id) => {
 export const getUserInfo = () => {
   return request.get('/app/v1_0/user')
 }
+
+// 获取登录用户的资料
+export const getUserProfile = ()=> {
+  return request.get('/app/v1_0/user/profile')
+}
