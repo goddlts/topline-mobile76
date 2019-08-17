@@ -48,7 +48,7 @@ export default {
     async onLoad() {
       const data = await getComments({
         isArticle: this.isArticle,
-        source: this.id,
+        source: this.id.toString(),
         offset: this.offset
       })
       // 获取评论列表，获取最后一条数据的id
